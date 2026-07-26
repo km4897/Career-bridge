@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+env/
+
+# Django
+db.sqlite3
+media/**
+!media/**/.gitkeep
+staticfiles/
+
+# Environment
+.env
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Bootstrap vendor files (downloaded manually, not committed)
+static/vendor/bootstrap/css/*.css
+static/vendor/bootstrap/css/*.map
+static/vendor/bootstrap/js/*.js
+static/vendor/bootstrap/js/*.map
+!static/vendor/bootstrap/README.txt

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}CareerBridge — Home{% endblock %}
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+  <h1 class="display-5 fw-bold">Welcome to CareerBridge</h1>
+  <p class="col-md-8 fs-4">Connecting graduate volunteers and apprentices with employers offering
+    internship, apprenticeship, and volunteer opportunities.</p>
+  <a class="btn btn-primary btn-lg me-2" href="{% url 'accounts:register' %}">Get Started</a>
+  <a class="btn btn-outline-secondary btn-lg" href="{% url 'opportunities:placeholder' %}">Browse Opportunities</a>
+</div>
+{% endblock %}

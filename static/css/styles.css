@@ -1,0 +1,9 @@
+/* CareerBridge custom overrides — loaded after Bootstrap */
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
