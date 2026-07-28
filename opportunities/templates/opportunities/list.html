@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Browse Opportunities — CareerBridge{% endblock %}
+{% block content %}
+<h1 class="mb-4">Browse Opportunities</h1>
+
+<form method="get" class="row g-2 mb-4">
+  <div class="col-md-5">{{ form.q }}</div>
+  <div class="col-md-3">{{ form.opportunity_type }}</div>
+  <div class="col-md-3">{{ form.location }}</div>
+  <div class="col-md-1"><button class="btn btn-primary w-100" type="submit">Go</button></div>
+</form>
+
+{% if user.is_authenticated and user.is_employer %}
+  <a href="{% url 'opportunities:create' %}" class="btn btn-outline-primary mb-3">+ Post an Opportunity</a>
+{% endif %}
+
+{% if page_obj %}
+  <div class="list-group">
+    {% for opp in page_obj %}
+      <a href="{{ opp.get_absolute_url }}" class="list-group-item list-group-item-action">
+        <div class="d-flex justify-content-between">
+          <h5 class="mb-1">{{ opp.title }}</h5>
+          <span class="badge text-bg-secondary">{{ opp.get_opportunity_type_display }}</span>
+        </div>
+        <p class="mb-1 text-muted">{{ opp.location }} · {{ opp.duration_weeks }} weeks</p>
+        {% if opp.skills_required %}<small class="text-muted">Skills: {{ opp.skills_required }}</small>{% endif %}
+      </a>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.has_other_pages %}
+  <nav class="mt-3">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+      <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+{% else %}
+  <p class="text-muted">No opportunities found matching your search.</p>
+{% endif %}
+{% endblock %}

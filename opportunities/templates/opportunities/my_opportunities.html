@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}My Opportunities — CareerBridge{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>My Opportunities</h1>
+  <a href="{% url 'opportunities:create' %}" class="btn btn-primary">+ New Posting</a>
+</div>
+
+{% if postings %}
+  <table class="table">
+    <thead><tr><th>Title</th><th>Type</th><th>Status</th><th>Applicants</th><th></th></tr></thead>
+    <tbody>
+      {% for opp in postings %}
+      <tr>
+        <td><a href="{{ opp.get_absolute_url }}">{{ opp.title }}</a></td>
+        <td>{{ opp.get_opportunity_type_display }}</td>
+        <td>{% if opp.is_active %}<span class="badge text-bg-success">Active</span>{% else %}<span class="badge text-bg-secondary">Closed</span>{% endif %}</td>
+        <td>{{ opp.applications.count }}</td>
+        <td>
+          <a href="{% url 'opportunities:update' opp.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+          <a href="{% url 'opportunities:delete' opp.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="text-muted">You haven't posted any opportunities yet.</p>
+{% endif %}
+{% endblock %}

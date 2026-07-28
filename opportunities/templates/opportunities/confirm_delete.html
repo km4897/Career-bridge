@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Delete "{{ opportunity.title }}"?</h1>
+<p class="text-muted">This cannot be undone.</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Yes, delete</button>
+  <a href="{% url 'opportunities:my_opportunities' %}" class="btn btn-link">Cancel</a>
+</form>
+{% endblock %}
