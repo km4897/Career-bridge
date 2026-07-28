@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.shortcuts import render
+
+from .services import get_recommended_opportunities
 
 
 @login_required
 def recommended(request):
-    # Placeholder: the scoring engine (services.py) will be wired in
-    # once the Opportunity and ApplicantProfile models exist.
-    return HttpResponse("Recommended opportunities placeholder — matching engine to be implemented.")
+    opportunities = get_recommended_opportunities(request.user)
+    return render(request, "matching/recommended.html", {"opportunities": opportunities})
