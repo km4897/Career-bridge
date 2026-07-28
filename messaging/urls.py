@@ -4,5 +4,5 @@ from . import views
 app_name = "messaging"
 
 urlpatterns = [
-    path("", views.placeholder, name="placeholder"),
+    path("<int:application_id>/", views.thread, name="thread"),
 ]
