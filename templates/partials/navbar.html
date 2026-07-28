@@ -7,13 +7,14 @@
     <div class="collapse navbar-collapse" id="mainNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" href="{% url 'core:landing' %}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'opportunities:placeholder' %}">Opportunities</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'opportunities:list' %}">Opportunities</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
       </ul>
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:redirect' %}">Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'notifications:placeholder' %}">Notifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'notifications:list' %}">Notifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'matching:recommended' %}">Recommended</a></li>
           <li class="nav-item">
             <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
               {% csrf_token %}

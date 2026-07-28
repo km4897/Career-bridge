@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ mode }} Opportunity — CareerBridge{% endblock %}
+{% block content %}
+<h1 class="mb-4">{{ mode }} Opportunity</h1>
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Save</button>
+  <a href="{% url 'opportunities:my_opportunities' %}" class="btn btn-link">Cancel</a>
+</form>
+{% endblock %}

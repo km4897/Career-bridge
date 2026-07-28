@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}My Applications — CareerBridge{% endblock %}
+{% block content %}
+<h1 class="mb-4">My Applications</h1>
+{% if applications %}
+  <table class="table">
+    <thead><tr><th>Opportunity</th><th>Employer</th><th>Status</th><th>Submitted</th></tr></thead>
+    <tbody>
+      {% for app in applications %}
+      <tr>
+        <td><a href="{{ app.opportunity.get_absolute_url }}">{{ app.opportunity.title }}</a></td>
+        <td>{{ app.opportunity.employer.username }}</td>
+        <td>
+          {% if app.status == "ACCEPTED" %}<span class="badge text-bg-success">{{ app.get_status_display }}</span>
+          {% elif app.status == "REJECTED" %}<span class="badge text-bg-danger">{{ app.get_status_display }}</span>
+          {% elif app.status == "SHORTLISTED" or app.status == "INTERVIEW" %}<span class="badge text-bg-info">{{ app.get_status_display }}</span>
+          {% else %}<span class="badge text-bg-secondary">{{ app.get_status_display }}</span>
+          {% endif %}
+        </td>
+        <td>{{ app.submitted_at|date:"d M Y" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="text-muted">You haven't applied to any opportunities yet. <a href="{% url 'opportunities:list' %}">Browse opportunities</a>.</p>
+{% endif %}
+{% endblock %}
