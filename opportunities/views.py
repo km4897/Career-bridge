@@ -12,8 +12,11 @@ def _employer_required(user):
 
 
 def opportunity_list(request):
-    """Public search/browse page. Anyone can view; only active postings show."""
-    qs = Opportunity.objects.filter(is_active=True)
+    """Public search/browse page. Anyone can view; only active, non-expired postings show."""
+    active_ids = [
+        opp.id for opp in Opportunity.objects.filter(is_active=True) if not opp.is_expired
+    ]
+    qs = Opportunity.objects.filter(id__in=active_ids)
     form = OpportunitySearchForm(request.GET or None)
 
     if form.is_valid():

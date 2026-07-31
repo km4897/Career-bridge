@@ -6,6 +6,9 @@
   <span class="badge text-bg-primary fs-6">{{ opportunity.get_opportunity_type_display }}</span>
 </div>
 <p class="text-muted">{{ opportunity.location }} · {{ opportunity.duration_weeks }} weeks · Posted by {{ opportunity.employer.username }}</p>
+<p class="{% if opportunity.days_remaining <= 3 %}text-danger fw-bold{% else %}text-muted{% endif %}">
+  {% if opportunity.is_expired %}This opportunity has expired.{% else %}{{ opportunity.days_remaining }} day(s) remaining to apply{% endif %}
+</p>
 
 <hr>
 <p>{{ opportunity.description|linebreaks }}</p>
