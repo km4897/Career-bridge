@@ -13,7 +13,14 @@
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:redirect' %}">Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'notifications:list' %}">Notifications</a></li>
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="{% url 'notifications:list' %}">
+              Notifications
+              {% if unread_notifications_count > 0 %}
+                <span class="badge rounded-pill bg-danger">{{ unread_notifications_count }}</span>
+              {% endif %}
+            </a>
+          </li>
           <li class="nav-item"><a class="nav-link" href="{% url 'matching:recommended' %}">Recommended</a></li>
           <li class="nav-item">
             <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
