@@ -1,11 +1,82 @@
 {% extends "base.html" %}
 {% block title %}CareerBridge — Home{% endblock %}
 {% block content %}
-<div class="p-5 mb-4 bg-light rounded-3">
-  <h1 class="display-5 fw-bold">Welcome to CareerBridge</h1>
-  <p class="col-md-8 fs-4">Connecting graduate volunteers and apprentices with employers offering
-    internship, apprenticeship, and volunteer opportunities.</p>
-  <a class="btn btn-primary btn-lg me-2" href="{% url 'accounts:register' %}">Get Started</a>
-  <a class="btn btn-outline-secondary btn-lg" href="{% url 'opportunities:placeholder' %}">Browse Opportunities</a>
+
+<section class="cb-hero">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-6">
+      <div class="cb-hero-eyebrow mb-3">FOR UGANDAN GRADUATES &amp; EMPLOYERS</div>
+      <h1 class="mb-3">Bridging graduates to real opportunities.</h1>
+      <p class="lead mb-4">
+        CareerBridge connects graduate volunteers and apprentices with employers
+        offering internships, apprenticeships, and volunteer placements —
+        in one transparent, structured place.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-primary btn-lg" href="{% url 'accounts:register' %}">Get Started</a>
+        <a class="btn btn-outline-secondary btn-lg" href="{% url 'opportunities:list' %}">Browse Opportunities</a>
+      </div>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block">
+      <svg class="cb-bridge-graphic" viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a bridge connecting graduates to employers">
+        <path class="cb-arc" d="M 60 190 Q 240 40 420 190" />
+        <path class="cb-arc" d="M 60 190 Q 240 90 420 190" style="stroke-dasharray:2 8; opacity:0.5;" />
+        <circle class="cb-node-glow" cx="60" cy="190" r="30" opacity="0.12" />
+        <circle class="cb-node" cx="60" cy="190" r="16" />
+        <circle class="cb-node-glow" cx="420" cy="190" r="30" opacity="0.12" />
+        <circle class="cb-node" cx="420" cy="190" r="16" />
+        <text x="60" y="235" text-anchor="middle">GRADUATES</text>
+        <text x="420" y="235" text-anchor="middle">EMPLOYERS</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div>
+  <div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+      <h2 class="text-center mb-5">How it works</h2>
+      <div class="d-flex flex-column gap-4">
+        <div class="cb-step">
+          <div class="cb-step-num">1</div>
+          <div>
+            <h5 class="mb-1">Build your profile</h5>
+            <p class="text-slate mb-0">Applicants list their skills and education; employers set up an organisation profile.</p>
+          </div>
+        </div>
+        <div class="cb-step">
+          <div class="cb-step-num">2</div>
+          <div>
+            <h5 class="mb-1">Post or apply</h5>
+            <p class="text-slate mb-0">Employers post internship, apprenticeship, and volunteer opportunities. Applicants search and apply directly.</p>
+          </div>
+        </div>
+        <div class="cb-step">
+          <div class="cb-step-num">3</div>
+          <div>
+            <h5 class="mb-1">Get matched and placed</h5>
+            <p class="text-slate mb-0">Track application status end to end, message directly, and get personalised recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cb-stats-strip">
+    <div class="row text-center">
+      <div class="col-4">
+        <div class="stat-value">{{ active_opportunities_count }}</div>
+        <div class="stat-label">Active opportunities</div>
+      </div>
+      <div class="col-4">
+        <div class="stat-value">{{ employers_count }}</div>
+        <div class="stat-label">Employers onboard</div>
+      </div>
+      <div class="col-4">
+        <div class="stat-value">{{ applicants_count }}</div>
+        <div class="stat-label">Registered applicants</div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
