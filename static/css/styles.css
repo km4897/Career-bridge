@@ -1,9 +1,299 @@
-/* CareerBridge custom overrides — loaded after Bootstrap */
+/* ============================================================
+   CareerBridge Design System
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
+:root {
+  --cb-teal: #0E5C56;
+  --cb-teal-dark: #0A403C;
+  --cb-teal-tint: #E6F0EF;
+  --cb-amber: #F2A541;
+  --cb-amber-dark: #D98E2E;
+  --cb-bg: #F6F8F7;
+  --cb-card: #FFFFFF;
+  --cb-ink: #16241F;
+  --cb-slate: #5B6B67;
+  --cb-danger: #C1443B;
+  --cb-border: #E1E8E6;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius: 14px;
+  --shadow-soft: 0 2px 10px rgba(14, 92, 86, 0.06), 0 1px 2px rgba(14, 92, 86, 0.08);
+  --shadow-hover: 0 8px 24px rgba(14, 92, 86, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Base ---------- */
 body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: var(--font-body);
+  background: var(--cb-bg);
+  color: var(--cb-ink);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-.navbar-brand {
-    letter-spacing: 0.5px;
+h1, h2, h3, .display-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--cb-ink);
+  letter-spacing: -0.01em;
 }
+
+.text-slate { color: var(--cb-slate) !important; }
+.font-mono { font-family: var(--font-mono); }
+
+a { color: var(--cb-teal); }
+a:hover { color: var(--cb-teal-dark); }
+
+/* ---------- Navbar ---------- */
+.navbar.cb-navbar {
+  background: var(--cb-teal) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+.cb-navbar .navbar-brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.cb-navbar .nav-link {
+  font-weight: 500;
+  opacity: 0.92;
+}
+.cb-navbar .nav-link:hover { opacity: 1; }
+.cb-navbar .btn-cta {
+  background: var(--cb-amber);
+  color: var(--cb-teal-dark);
+  font-weight: 600;
+  border: none;
+}
+.cb-navbar .btn-cta:hover { background: var(--cb-amber-dark); }
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  background-color: var(--cb-teal);
+  border-color: var(--cb-teal);
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0.55rem 1.3rem;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--cb-teal-dark);
+  border-color: var(--cb-teal-dark);
+}
+.btn-outline-secondary {
+  border-color: var(--cb-border);
+  color: var(--cb-ink);
+  font-weight: 600;
+  border-radius: 10px;
+}
+.btn-outline-secondary:hover {
+  background-color: var(--cb-teal-tint);
+  border-color: var(--cb-teal);
+  color: var(--cb-teal-dark);
+}
+.btn-success {
+  background-color: var(--cb-teal);
+  border-color: var(--cb-teal);
+  font-weight: 600;
+  border-radius: 10px;
+}
+.btn-success:hover { background-color: var(--cb-teal-dark); border-color: var(--cb-teal-dark); }
+.btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--cb-amber);
+  outline-offset: 2px;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  border: 1px solid var(--cb-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  background: var(--cb-card);
+}
+.list-group-item-action {
+  border-radius: var(--radius) !important;
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--cb-border) !important;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.list-group-item-action:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+  background-color: var(--cb-card);
+}
+
+/* Stat cards (dashboards) */
+.stat-card {
+  border-radius: var(--radius);
+  border: 1px solid var(--cb-border);
+  background: var(--cb-card);
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.stat-card h3 {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--cb-teal);
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- Badges ---------- */
+.badge.text-bg-secondary { background-color: var(--cb-slate) !important; }
+.badge.text-bg-primary { background-color: var(--cb-teal) !important; }
+.badge.text-bg-success { background-color: var(--cb-teal) !important; }
+.badge.text-bg-info { background-color: var(--cb-amber) !important; color: var(--cb-teal-dark) !important; }
+.badge.text-bg-danger { background-color: var(--cb-danger) !important; }
+
+/* ---------- Forms ---------- */
+.form-control, .form-select {
+  border-radius: 10px;
+  border-color: var(--cb-border);
+  padding: 0.55rem 0.85rem;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--cb-teal);
+  box-shadow: 0 0 0 0.2rem var(--cb-teal-tint);
+}
+
+/* Fallback for plain Django form.as_p rendering (no Bootstrap classes
+   applied, e.g. built-in auth forms) so it still looks consistent. */
+form p { margin-bottom: 1.1rem; }
+form label { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; display: inline-block; }
+input[type="text"], input[type="email"], input[type="password"],
+input[type="url"], input[type="number"], input[type="tel"],
+select, textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--cb-border);
+  padding: 0.55rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--cb-card);
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
+select:focus, textarea:focus {
+  border-color: var(--cb-teal);
+  box-shadow: 0 0 0 0.2rem var(--cb-teal-tint);
+  outline: none;
+}
+input[type="checkbox"], input[type="radio"] { margin-right: 0.4rem; }
+form ul.errorlist {
+  color: var(--cb-danger);
+  font-size: 0.85rem;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.25rem;
+}
+
+/* ---------- Hero ---------- */
+.cb-hero {
+  background: linear-gradient(135deg, var(--cb-teal-tint) 0%, var(--cb-bg) 100%);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+.cb-hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cb-teal);
+  font-weight: 600;
+}
+.cb-hero h1 {
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  max-width: 14ch;
+}
+.cb-hero p.lead {
+  color: var(--cb-slate);
+  max-width: 46ch;
+  font-size: 1.15rem;
+}
+
+/* Bridge signature graphic */
+.cb-bridge-graphic text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  fill: var(--cb-teal-dark);
+  font-weight: 600;
+}
+.cb-bridge-graphic .cb-arc {
+  stroke: var(--cb-teal);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-dasharray: 4 6;
+}
+.cb-bridge-graphic .cb-node {
+  fill: var(--cb-amber);
+  stroke: var(--cb-teal-dark);
+  stroke-width: 2;
+}
+.cb-bridge-graphic .cb-node-glow {
+  fill: var(--cb-teal);
+}
+
+/* How it works steps */
+.cb-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.cb-step-num {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--cb-teal);
+  background: var(--cb-teal-tint);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Live stats strip */
+.cb-stats-strip {
+  border-top: 1px solid var(--cb-border);
+  border-bottom: 1px solid var(--cb-border);
+  padding: 1.75rem 0;
+  margin: 3rem 0;
+}
+.cb-stats-strip .stat-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--cb-teal);
+}
+.cb-stats-strip .stat-label {
+  color: var(--cb-slate);
+  font-size: 0.9rem;
+}
+
+/* ---------- Footer ---------- */
+footer.cb-footer {
+  background: var(--cb-ink) !important;
+}
+footer.cb-footer p { color: rgba(255,255,255,0.7); }
+
+/* ---------- Alerts ---------- */
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+.alert-success { background: var(--cb-teal-tint); color: var(--cb-teal-dark); }
+.alert-danger { background: #FBEAE8; color: var(--cb-danger); }
+.alert-info { background: #FFF4E3; color: var(--cb-amber-dark); }
