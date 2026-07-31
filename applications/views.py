@@ -13,6 +13,10 @@ from .models import Application
 def apply_to_opportunity(request, slug):
     opportunity = get_object_or_404(Opportunity, slug=slug, is_active=True)
 
+    if opportunity.is_expired:
+        messages.error(request, "This opportunity has expired and is no longer accepting applications.")
+        return redirect("opportunities:list")
+
     if not request.user.is_applicant:
         messages.error(request, "Only applicant accounts can apply to opportunities.")
         return redirect(opportunity.get_absolute_url())
