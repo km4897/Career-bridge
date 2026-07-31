@@ -22,7 +22,7 @@
           <h5 class="mb-1">{{ opp.title }}</h5>
           <span class="badge text-bg-secondary">{{ opp.get_opportunity_type_display }}</span>
         </div>
-        <p class="mb-1 text-muted">{{ opp.location }} · {{ opp.duration_weeks }} weeks</p>
+        <p class="mb-1 text-muted">{{ opp.location }} · {{ opp.duration_weeks }} weeks · {{ opp.days_remaining }} day(s) left</p>
         {% if opp.skills_required %}<small class="text-muted">Skills: {{ opp.skills_required }}</small>{% endif %}
       </a>
     {% endfor %}

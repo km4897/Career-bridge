@@ -1,6 +1,9 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
 
 
@@ -57,3 +60,19 @@ class Opportunity(models.Model):
 
     def skills_list(self):
         return [s.strip() for s in self.skills_required.split(",") if s.strip()]
+
+    @property
+    def expires_at(self):
+        """The moment this posting is considered expired, based on when
+        it was created plus its stated duration."""
+        return self.created_at + timedelta(weeks=self.duration_weeks)
+
+    @property
+    def is_expired(self):
+        return timezone.now() >= self.expires_at
+
+    @property
+    def days_remaining(self):
+        """Whole days left before expiry; 0 if already expired."""
+        delta = self.expires_at - timezone.now()
+        return max(delta.days, 0)
