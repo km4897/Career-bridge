@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark cb-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'core:landing' %}">CareerBridge</a>
+    <a class="navbar-brand fw-bold" href="{% url 'core:landing' %}">CareerBridge</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,7 +10,7 @@
         <li class="nav-item"><a class="nav-link" href="{% url 'opportunities:list' %}">Opportunities</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
       </ul>
-      <ul class="navbar-nav align-items-lg-center">
+      <ul class="navbar-nav">
         {% if user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:redirect' %}">Dashboard</a></li>
           {% if user.is_applicant %}
@@ -18,24 +18,17 @@
           {% elif user.is_employer %}
             <li class="nav-item"><a class="nav-link" href="{% url 'profiles:edit_employer' %}">Organisation Profile</a></li>
           {% endif %}
-          <li class="nav-item">
-            <a class="nav-link position-relative" href="{% url 'notifications:list' %}">
-              Notifications
-              {% if unread_notifications_count > 0 %}
-                <span class="badge rounded-pill bg-danger">{{ unread_notifications_count }}</span>
-              {% endif %}
-            </a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'notifications:list' %}">Notifications</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'matching:recommended' %}">Recommended</a></li>
-          <li class="nav-item ms-lg-2">
+          <li class="nav-item">
             <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
               {% csrf_token %}
-              <button type="submit" class="btn btn-link nav-link border-0 p-0 px-lg-2">Logout ({{ user.username }})</button>
+              <button type="submit" class="btn btn-link nav-link border-0">Logout ({{ user.username }})</button>
             </form>
           </li>
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
-          <li class="nav-item ms-lg-2"><a class="btn btn-cta btn-sm" href="{% url 'accounts:register' %}">Register</a></li>
+          <li class="nav-item"><a class="btn btn-light btn-sm ms-2" href="{% url 'accounts:register' %}">Register</a></li>
         {% endif %}
       </ul>
     </div>
