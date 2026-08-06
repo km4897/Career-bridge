@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}My Profile — CareerBridge{% endblock %}
+{% block content %}
+<h1 class="mb-4">My Profile</h1>
+<form method="post" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Save Profile</button>
+</form>
+
+{% if profile.cv %}<p class="mt-3"><a href="{{ profile.cv.url }}" target="_blank">Current CV</a></p>{% endif %}
+{% if profile.certificate %}<p><a href="{{ profile.certificate.url }}" target="_blank">Current Certificate</a></p>{% endif %}
+{% if profile.id_document %}<p><a href="{{ profile.id_document.url }}" target="_blank">Current ID Document</a></p>{% endif %}
+{% endblock %}
