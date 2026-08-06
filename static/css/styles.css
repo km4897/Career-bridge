@@ -297,3 +297,60 @@ footer.cb-footer p { color: rgba(255,255,255,0.7); }
 .alert-success { background: var(--cb-teal-tint); color: var(--cb-teal-dark); }
 .alert-danger { background: #FBEAE8; color: var(--cb-danger); }
 .alert-info { background: #FFF4E3; color: var(--cb-amber-dark); }
+
+/* ---------- Form card (login, register, apply, profile edit, etc.) ---------- */
+.cb-form-page {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 2.5rem;
+}
+.cb-form-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--cb-card);
+  border: 1px solid var(--cb-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 2.25rem 2rem;
+}
+.cb-form-card.cb-form-card-wide {
+  max-width: 680px;
+}
+.cb-form-card h1 {
+  font-size: 1.7rem;
+  margin-bottom: 0.4rem;
+}
+.cb-form-card .cb-form-subtitle {
+  color: var(--cb-slate);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.cb-form-card form p { margin-bottom: 1rem; }
+.cb-form-card .btn-primary,
+.cb-form-card .btn-success {
+  width: 100%;
+}
+.cb-form-card .cb-form-footer {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--cb-slate);
+}
+
+@media (max-width: 576px) {
+  .cb-form-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 12px;
+    box-shadow: none;
+    border: none;
+  }
+  .cb-hero {
+    padding: 2rem 1.25rem;
+  }
+  .cb-hero h1 {
+    font-size: 1.8rem;
+  }
+  .cb-stats-strip .row > div {
+    margin-bottom: 1rem;
+  }
+}

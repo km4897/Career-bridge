@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Apply — {{ opportunity.title }}{% endblock %}
 {% block content %}
-<h1>Apply to "{{ opportunity.title }}"</h1>
-<p class="text-muted">{{ opportunity.location }} · {{ opportunity.get_opportunity_type_display }}</p>
-<form method="post" novalidate>
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Submit Application</button>
-  <a href="{{ opportunity.get_absolute_url }}" class="btn btn-link">Cancel</a>
-</form>
+<div class="cb-form-page">
+  <div class="cb-form-card">
+    <h1>Apply to this opportunity</h1>
+    <p class="cb-form-subtitle">{{ opportunity.title }} · {{ opportunity.location }} · {{ opportunity.get_opportunity_type_display }}</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success btn-lg mt-2">Submit Application</button>
+    </form>
+    <p class="cb-form-footer"><a href="{{ opportunity.get_absolute_url }}">Cancel and go back</a></p>
+  </div>
+</div>
 {% endblock %}
