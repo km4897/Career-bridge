@@ -380,8 +380,147 @@ form ul.errorlist {
 /* ---------- Footer ---------- */
 footer.cb-footer {
   background: var(--cb-ink) !important;
+  padding: 3.5rem 0 0;
+  margin-top: 3rem;
 }
-footer.cb-footer p { color: rgba(255,255,255,0.7); }
+footer.cb-footer h6 {
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+}
+footer.cb-footer .cb-footer-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+footer.cb-footer p, footer.cb-footer li { color: rgba(255,255,255,0.65); }
+footer.cb-footer a {
+  color: rgba(255,255,255,0.72);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+footer.cb-footer a:hover { color: var(--cb-amber); }
+footer.cb-footer ul { list-style: none; padding: 0; margin: 0; }
+footer.cb-footer li { margin-bottom: 0.55rem; font-size: 0.92rem; }
+.cb-footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  margin-top: 2.5rem;
+  padding: 1.25rem 0;
+}
+.cb-footer-bottom p { margin-bottom: 0; font-size: 0.85rem; }
+
+/* ---------- Card hover + button animation utilities ---------- */
+.cb-hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cb-hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+.btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn-primary:hover, .btn-success:hover, .cb-quick-action.primary:hover {
+  box-shadow: 0 8px 20px rgba(11, 110, 99, 0.28);
+}
+.cb-navbar .btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 166, 35, 0.35);
+}
+
+/* Fade-in-on-load animation (CSS-only, never depends on JS running —
+   content is always visible even if this doesn't fire). */
+@keyframes cbFadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cb-reveal {
+  animation: cbFadeInUp 0.5s ease both;
+}
+.cb-reveal:nth-child(2) { animation-delay: 0.08s; }
+.cb-reveal:nth-child(3) { animation-delay: 0.16s; }
+@media (prefers-reduced-motion: reduce) {
+  .cb-reveal { animation: none; opacity: 1; transform: none; }
+  .cb-hover-card:hover { transform: none; }
+  .btn:hover { transform: none; }
+}
+
+/* ---------- Homepage: feature + featured-opportunity cards, CTA band ---------- */
+.cb-feature-card {
+  background: var(--cb-card);
+  border: 1px solid var(--cb-border);
+  border-radius: var(--radius);
+  padding: 1.75rem 1.5rem;
+  height: 100%;
+}
+.cb-feature-card .cb-feature-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--cb-teal-tint);
+  color: var(--cb-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+.cb-feature-card.accent-amber .cb-feature-icon { background: #FFF4E3; color: var(--cb-amber-dark); }
+.cb-feature-card.accent-coral .cb-feature-icon { background: var(--cb-coral-tint); color: var(--cb-coral); }
+.cb-feature-card h5 { margin-bottom: 0.5rem; }
+.cb-feature-card p { color: var(--cb-slate); margin-bottom: 0; font-size: 0.94rem; }
+
+.cb-opp-card {
+  background: var(--cb-card);
+  border: 1px solid var(--cb-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.cb-opp-card:hover { color: inherit; }
+.cb-opp-card .cb-opp-type {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cb-teal);
+  background: var(--cb-teal-tint);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  margin-bottom: 0.9rem;
+}
+.cb-opp-card h5 { margin-bottom: 0.4rem; }
+.cb-opp-card .cb-opp-meta { color: var(--cb-slate); font-size: 0.88rem; margin-bottom: 0; display: flex; align-items: center; gap: 0.4rem; }
+
+.cb-cta-band {
+  background: linear-gradient(120deg, var(--cb-teal-dark), var(--cb-teal));
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  color: #fff;
+  margin: 3.5rem 0;
+}
+.cb-cta-band h2 { color: #fff; margin-bottom: 0.6rem; }
+.cb-cta-band p { color: rgba(255,255,255,0.82); margin-bottom: 1.5rem; }
+.cb-cta-band .btn-light {
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0.6rem 1.6rem;
+}
 
 /* ---------- Alerts ---------- */
 .alert {
