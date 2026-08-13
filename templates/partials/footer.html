@@ -1,6 +1,39 @@
-<footer class="cb-footer text-light py-4 mt-auto">
-  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <p class="mb-0">&copy; {% now "Y" %} CareerBridge. All rights reserved.</p>
-    <p class="mb-0 small">Bridging graduates to real opportunities.</p>
+{% load icons %}
+<footer class="cb-footer text-light">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="cb-footer-brand">{% icon "layers" size=22 %} CareerBridge</div>
+        <p style="max-width: 32ch;">Bridging graduate volunteers and apprentices to real internship, apprenticeship, and volunteer opportunities.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Platform</h6>
+        <ul>
+          <li><a href="{% url 'core:landing' %}">Home</a></li>
+          <li><a href="{% url 'opportunities:list' %}">Opportunities</a></li>
+          <li><a href="{% url 'core:about' %}">About</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>For Applicants</h6>
+        <ul>
+          <li><a href="{% url 'accounts:register' %}">Create an account</a></li>
+          <li><a href="{% url 'opportunities:list' %}">Browse opportunities</a></li>
+          <li><a href="{% url 'accounts:login' %}">Log in</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>For Employers</h6>
+        <ul>
+          <li><a href="{% url 'accounts:register' %}">Register your organisation</a></li>
+          <li><a href="{% url 'accounts:login' %}">Post an opportunity</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cb-footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <p>&copy; {% now "Y" %} CareerBridge. All rights reserved.</p>
+      <p>Built with Django &amp; Bootstrap.</p>
+    </div>
   </div>
 </footer>

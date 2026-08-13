@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load icons %}
 {% block title %}CareerBridge — Home{% endblock %}
 {% block content %}
 
@@ -33,7 +34,64 @@
 </section>
 
 <div>
-  <div class="row mb-5">
+  <!-- Why CareerBridge -->
+  <div class="row mb-3">
+    <div class="col-lg-7 mx-auto text-center">
+      <h2 class="mb-2">Why CareerBridge</h2>
+      <p class="text-slate">Everything graduates and employers need to find each other, in one place.</p>
+    </div>
+  </div>
+  <div class="row g-4 mb-5">
+    <div class="col-md-4 cb-reveal">
+      <div class="cb-feature-card cb-hover-card">
+        <div class="cb-feature-icon">{% icon "user" size=22 %}</div>
+        <h5>Built for applicants</h5>
+        <p>One profile, one CV upload, apply to any opportunity in a few clicks — and track every application's status in real time.</p>
+      </div>
+    </div>
+    <div class="col-md-4 cb-reveal">
+      <div class="cb-feature-card accent-amber cb-hover-card">
+        <div class="cb-feature-icon">{% icon "briefcase" size=22 %}</div>
+        <h5>Built for employers</h5>
+        <p>Post a role in minutes, review applicants with their full profile and documents, and message shortlisted candidates directly.</p>
+      </div>
+    </div>
+    <div class="col-md-4 cb-reveal">
+      <div class="cb-feature-card accent-coral cb-hover-card">
+        <div class="cb-feature-icon">{% icon "star" size=22 %}</div>
+        <h5>Smarter matching</h5>
+        <p>Recommendations are ranked by real skill overlap between your profile and what each opportunity actually requires.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Opportunities -->
+  {% if featured_opportunities %}
+  <div class="d-flex justify-content-between align-items-end mb-3">
+    <div>
+      <h2 class="mb-1">Featured Opportunities</h2>
+      <p class="text-slate mb-0">Freshly posted, still open.</p>
+    </div>
+    <a href="{% url 'opportunities:list' %}" class="d-none d-md-inline-flex align-items-center gap-1 fw-semibold">
+      View all {% icon "arrow-right" size=16 %}
+    </a>
+  </div>
+  <div class="row g-4 mb-3">
+    {% for opp in featured_opportunities %}
+      <div class="col-md-4 cb-reveal">
+        <a href="{{ opp.get_absolute_url }}" class="cb-opp-card cb-hover-card">
+          <span class="cb-opp-type">{{ opp.get_opportunity_type_display }}</span>
+          <h5>{{ opp.title }}</h5>
+          <p class="cb-opp-meta">{% icon "map-pin" size=14 %} {{ opp.location }} · {{ opp.duration_weeks }} weeks</p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <p class="text-center d-md-none mb-5"><a href="{% url 'opportunities:list' %}">View all opportunities →</a></p>
+  {% endif %}
+
+  <!-- How it works -->
+  <div class="row mb-5 mt-5">
     <div class="col-lg-8 mx-auto">
       <h2 class="text-center mb-5">How it works</h2>
       <div class="d-flex flex-column gap-4">
@@ -77,6 +135,13 @@
         <div class="stat-label">Registered applicants</div>
       </div>
     </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cb-cta-band cb-reveal">
+    <h2>Ready to get started?</h2>
+    <p>Join CareerBridge today — it takes less than two minutes to create your profile.</p>
+    <a href="{% url 'accounts:register' %}" class="btn btn-light btn-lg">Create your free account</a>
   </div>
 </div>
 {% endblock %}
