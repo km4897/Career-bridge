@@ -1,14 +1,56 @@
-{% extends "base.html" %}
+{% extends "app_base.html" %}
+{% load icons %}
 {% block title %}Admin Dashboard — CareerBridge{% endblock %}
-{% block content %}
-<h1 class="mb-4">Platform Overview</h1>
-<div class="row g-3">
-  <div class="col-md-3"><div class="stat-card"><h3>{{ stats.total_users }}</h3><p class="text-slate mb-0">Total Users</p></div></div>
-  <div class="col-md-3"><div class="stat-card"><h3>{{ stats.total_applicants }}</h3><p class="text-slate mb-0">Applicants</p></div></div>
-  <div class="col-md-3"><div class="stat-card"><h3>{{ stats.total_employers }}</h3><p class="text-slate mb-0">Employers</p></div></div>
-  <div class="col-md-3"><div class="stat-card"><h3>{{ stats.active_opportunities }}</h3><p class="text-slate mb-0">Active Postings</p></div></div>
-  <div class="col-md-3"><div class="stat-card"><h3>{{ stats.total_opportunities }}</h3><p class="text-slate mb-0">Total Postings</p></div></div>
-  <div class="col-md-3"><div class="stat-card"><h3>{{ stats.total_applications }}</h3><p class="text-slate mb-0">Applications</p></div></div>
-  <div class="col-md-3"><div class="stat-card"><h3>{{ stats.placements }}</h3><p class="text-slate mb-0">Placements</p></div></div>
+{% block app_content %}
+<h1 class="mb-1">Platform Overview</h1>
+<p class="text-slate mb-4">Live stats across the whole CareerBridge platform.</p>
+
+<div class="row g-3 mb-2">
+  <div class="col-md-3">
+    <div class="stat-card"><div class="stat-card-icon">{% icon "users" size=20 %}</div><h3>{{ stats.total_users }}</h3><p class="stat-label-text">Total Users</p></div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card"><div class="stat-card-icon">{% icon "user" size=20 %}</div><h3>{{ stats.total_applicants }}</h3><p class="stat-label-text">Applicants</p></div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card"><div class="stat-card-icon">{% icon "building" size=20 %}</div><h3>{{ stats.total_employers }}</h3><p class="stat-label-text">Employers</p></div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card accent-amber"><div class="stat-card-icon">{% icon "check-circle" size=20 %}</div><h3>{{ stats.placements }}</h3><p class="stat-label-text">Placements</p></div>
+  </div>
+</div>
+<div class="row g-3 mb-2">
+  <div class="col-md-4">
+    <div class="stat-card"><div class="stat-card-icon">{% icon "layers" size=20 %}</div><h3>{{ stats.active_opportunities }}</h3><p class="stat-label-text">Active Postings</p></div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card"><div class="stat-card-icon">{% icon "briefcase" size=20 %}</div><h3>{{ stats.total_opportunities }}</h3><p class="stat-label-text">Total Postings</p></div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card"><div class="stat-card-icon">{% icon "file" size=20 %}</div><h3>{{ stats.total_applications }}</h3><p class="stat-label-text">Applications</p></div>
+  </div>
+</div>
+
+<div class="cb-quick-actions">
+  <a href="/admin/" class="cb-quick-action primary">{% icon "users" size=16 %} Open Django Admin</a>
+</div>
+
+<div class="card p-3" style="max-width: 560px;">
+  <h5 class="mb-3">Applications by Status (Platform-wide)</h5>
+  {% if stats.total_applications %}
+    <div class="cb-status-breakdown">
+      {% for row in status_breakdown %}
+        {% if row.count > 0 %}
+          <div class="cb-status-row">
+            <span class="cb-status-label">{{ row.label }}</span>
+            <span class="cb-status-track"><span class="cb-status-fill" style="width: {{ row.pct }}%;"></span></span>
+            <span class="cb-status-count">{{ row.count }}</span>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-slate mb-0">No applications yet.</p>
+  {% endif %}
 </div>
 {% endblock %}

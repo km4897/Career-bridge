@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "app_base.html" %}
 {% block title %}Applicants — {{ opportunity.title }}{% endblock %}
-{% block content %}
+{% block app_content %}
 <h1 class="mb-1">Applicants for "{{ opportunity.title }}"</h1>
 <p class="text-muted mb-4">{{ applications|length }} applicant(s)</p>
 

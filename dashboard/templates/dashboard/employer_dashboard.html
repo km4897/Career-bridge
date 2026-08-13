@@ -1,30 +1,89 @@
-{% extends "base.html" %}
+{% extends "app_base.html" %}
+{% load icons %}
 {% block title %}Employer Dashboard — CareerBridge{% endblock %}
-{% block content %}
-<h1 class="mb-4">Welcome, {{ user.username }}</h1>
+{% block app_content %}
+<h1 class="mb-1">Welcome, {{ user.username }}</h1>
+<p class="text-slate mb-4">Here's an overview of your postings and applicants.</p>
 
-<div class="row g-3 mb-4">
-  <div class="col-md-4">
+<div class="row g-3 mb-2">
+  <div class="col-md-3">
     <div class="stat-card position-relative">
+      <div class="stat-card-icon">{% icon "briefcase" size=20 %}</div>
       <h3>{{ postings.count }}</h3>
-      <p class="text-slate mb-0">Your Postings</p>
+      <p class="stat-label-text">Your Postings</p>
       <a href="{% url 'opportunities:my_opportunities' %}" class="stretched-link"></a>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="stat-card">
-      <h3>{{ total_applicants }}</h3>
-      <p class="text-slate mb-0">Total Applicants</p>
+      <div class="stat-card-icon">{% icon "layers" size=20 %}</div>
+      <h3>{{ active_postings }}</h3>
+      <p class="stat-label-text">Active Postings</p>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="stat-card position-relative">
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-card-icon">{% icon "users" size=20 %}</div>
+      <h3>{{ total_applicants }}</h3>
+      <p class="stat-label-text">Total Applicants</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card accent-amber position-relative">
+      <div class="stat-card-icon">{% icon "bell" size=20 %}</div>
       <h3>{{ unread_notifications }}</h3>
-      <p class="text-slate mb-0">Unread Notifications</p>
+      <p class="stat-label-text">Unread Notifications</p>
       <a href="{% url 'notifications:list' %}" class="stretched-link"></a>
     </div>
   </div>
 </div>
 
-<a href="{% url 'opportunities:create' %}" class="btn btn-primary">+ Post a New Opportunity</a>
+<div class="cb-quick-actions">
+  <a href="{% url 'opportunities:create' %}" class="cb-quick-action primary">{% icon "plus-circle" size=16 %} Post a New Opportunity</a>
+  <a href="{% url 'opportunities:my_opportunities' %}" class="cb-quick-action">{% icon "briefcase" size=16 %} Manage Postings</a>
+  <a href="{% url 'profiles:edit_employer' %}" class="cb-quick-action">{% icon "building" size=16 %} Organisation Profile</a>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="card p-3">
+      <h5 class="mb-3">Applicant Status</h5>
+      {% if total_applicants %}
+        <div class="cb-status-breakdown">
+          {% for row in status_breakdown %}
+            {% if row.count > 0 %}
+              <div class="cb-status-row">
+                <span class="cb-status-label">{{ row.label }}</span>
+                <span class="cb-status-track"><span class="cb-status-fill" style="width: {{ row.pct }}%;"></span></span>
+                <span class="cb-status-count">{{ row.count }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-slate mb-0">No applicants yet.</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <div class="card p-3">
+      <h5 class="mb-3">Recent Applicants</h5>
+      {% if recent_applicants %}
+        <ul class="list-group list-group-flush">
+          {% for app in recent_applicants %}
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <div>
+                <a href="{% url 'applications:opportunity_applicants' app.opportunity.slug %}">{{ app.applicant.username }}</a>
+                <span class="text-slate small"> → {{ app.opportunity.title }}</span>
+              </div>
+              <span class="badge text-bg-secondary">{{ app.get_status_display }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-slate mb-0">No applicants yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}

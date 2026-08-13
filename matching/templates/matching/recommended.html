@@ -2,16 +2,19 @@
 {% block title %}Recommended For You — CareerBridge{% endblock %}
 {% block content %}
 <h1 class="mb-4">Recommended For You</h1>
-{% if opportunities %}
+{% if results %}
   <div class="list-group">
-    {% for opp in opportunities %}
-      <a href="{{ opp.get_absolute_url }}" class="list-group-item list-group-item-action">
-        <h5 class="mb-1">{{ opp.title }}</h5>
-        <p class="mb-1 text-muted">{{ opp.location }} · {{ opp.get_opportunity_type_display }} · {{ opp.duration_weeks }} weeks</p>
+    {% for item in results %}
+      <a href="{{ item.opportunity.get_absolute_url }}" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">{{ item.opportunity.title }}</h5>
+        <p class="mb-1 text-slate">{{ item.opportunity.location }} · {{ item.opportunity.get_opportunity_type_display }} · {{ item.opportunity.duration_weeks }} weeks</p>
+        {% if item.matched_skills %}
+          <small class="text-muted">Matched on: {{ item.matched_skills|join:", " }}</small>
+        {% endif %}
       </a>
     {% endfor %}
   </div>
 {% else %}
-  <p class="text-muted">No recommendations yet — browse and apply to a few opportunities to get personalised suggestions.</p>
+  <p class="text-slate">No recommendations yet — add some skills to your profile or apply to a few opportunities to get personalised suggestions.</p>
 {% endif %}
 {% endblock %}

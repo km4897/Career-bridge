@@ -1,42 +1,79 @@
-{% extends "base.html" %}
+{% extends "app_base.html" %}
+{% load icons %}
 {% block title %}My Dashboard — CareerBridge{% endblock %}
-{% block content %}
-<h1 class="mb-4">Welcome, {{ user.username }}</h1>
+{% block app_content %}
+<h1 class="mb-1">Welcome, {{ user.username }}</h1>
+<p class="text-slate mb-4">Here's where things stand with your job search.</p>
 
-<div class="row g-3 mb-4">
+<div class="row g-3 mb-2">
   <div class="col-md-4">
     <div class="stat-card">
+      <div class="stat-card-icon">{% icon "file" size=20 %}</div>
       <h3>{{ applications.count }}</h3>
-      <p class="text-slate mb-0">Applications</p>
+      <p class="stat-label-text">Applications</p>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="stat-card position-relative">
+    <div class="stat-card accent-amber position-relative">
+      <div class="stat-card-icon">{% icon "bell" size=20 %}</div>
       <h3>{{ unread_notifications }}</h3>
-      <p class="text-slate mb-0">Unread Notifications</p>
+      <p class="stat-label-text">Unread Notifications</p>
       <a href="{% url 'notifications:list' %}" class="stretched-link"></a>
     </div>
   </div>
   <div class="col-md-4">
     <div class="stat-card position-relative">
+      <div class="stat-card-icon">{% icon "star" size=20 %}</div>
       <h3>{{ recommended|length }}</h3>
-      <p class="text-slate mb-0">Recommended For You</p>
+      <p class="stat-label-text">Recommended For You</p>
       <a href="{% url 'matching:recommended' %}" class="stretched-link"></a>
     </div>
   </div>
 </div>
 
-<h4>Recent Applications</h4>
-{% if applications %}
-  <ul class="list-group mb-4">
-    {% for app in applications|slice:":5" %}
-      <li class="list-group-item d-flex justify-content-between">
-        <a href="{{ app.opportunity.get_absolute_url }}">{{ app.opportunity.title }}</a>
-        <span class="badge text-bg-secondary">{{ app.get_status_display }}</span>
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p class="text-slate">No applications yet. <a href="{% url 'opportunities:list' %}">Browse opportunities</a>.</p>
-{% endif %}
+<div class="cb-quick-actions">
+  <a href="{% url 'opportunities:list' %}" class="cb-quick-action primary">{% icon "search" size=16 %} Browse Opportunities</a>
+  <a href="{% url 'profiles:edit_applicant' %}" class="cb-quick-action">{% icon "edit" size=16 %} Edit Profile</a>
+  <a href="{% url 'matching:recommended' %}" class="cb-quick-action">{% icon "star" size=16 %} View Recommendations</a>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="card p-3">
+      <h5 class="mb-3">Application Status</h5>
+      {% if applications %}
+        <div class="cb-status-breakdown">
+          {% for row in status_breakdown %}
+            {% if row.count > 0 %}
+              <div class="cb-status-row">
+                <span class="cb-status-label">{{ row.label }}</span>
+                <span class="cb-status-track"><span class="cb-status-fill" style="width: {{ row.pct }}%;"></span></span>
+                <span class="cb-status-count">{{ row.count }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-slate mb-0">No applications yet.</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <div class="card p-3">
+      <h5 class="mb-3">Recent Applications</h5>
+      {% if applications %}
+        <ul class="list-group list-group-flush">
+          {% for app in applications|slice:":5" %}
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <a href="{{ app.opportunity.get_absolute_url }}">{{ app.opportunity.title }}</a>
+              <span class="badge text-bg-secondary">{{ app.get_status_display }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-slate mb-0">No applications yet. <a href="{% url 'opportunities:list' %}">Browse opportunities</a>.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}

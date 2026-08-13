@@ -7,7 +7,19 @@
     <p class="cb-form-subtitle">Log in to your CareerBridge account.</p>
     <form method="post" novalidate>
       {% csrf_token %}
-      {{ form.as_p }}
+
+      <div class="cb-field">
+        <label class="cb-field-label" for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+      </div>
+
+      <div class="cb-field">
+        <label class="cb-field-label" for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}
+      </div>
+
+      {% if form.non_field_errors %}<p class="cb-field-error">{{ form.non_field_errors.0 }}</p>{% endif %}
+
       <button type="submit" class="btn btn-primary btn-lg mt-2">Log in</button>
     </form>
     <p class="cb-form-footer">

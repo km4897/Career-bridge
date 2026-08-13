@@ -7,7 +7,48 @@
     <p class="cb-form-subtitle">Join CareerBridge as an applicant or employer.</p>
     <form method="post" novalidate>
       {% csrf_token %}
-      {{ form.as_p }}
+
+      <div class="cb-field">
+        <label class="cb-field-label" for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+        {% if form.username.errors %}<p class="cb-field-error">{{ form.username.errors.0 }}</p>
+        {% else %}<p class="cb-field-help">{{ form.username.help_text }}</p>{% endif %}
+      </div>
+
+      <div class="cb-field">
+        <label class="cb-field-label" for="{{ form.email.id_for_label }}">Email address</label>
+        {{ form.email }}
+        {% if form.email.errors %}<p class="cb-field-error">{{ form.email.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="cb-field">
+        <label class="cb-field-label">I am a</label>
+        <div class="cb-role-toggle">
+          {% for radio in form.role %}
+            <label class="cb-role-option">
+              {{ radio.tag }}
+              <span>{{ radio.choice_label }}</span>
+            </label>
+          {% endfor %}
+        </div>
+        {% if form.role.errors %}<p class="cb-field-error">{{ form.role.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="cb-field">
+        <label class="cb-field-label" for="{{ form.password1.id_for_label }}">Password</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}<p class="cb-field-error">{{ form.password1.errors.0 }}</p>
+        {% else %}<p class="cb-field-help">{{ form.password1.help_text }}</p>{% endif %}
+      </div>
+
+      <div class="cb-field">
+        <label class="cb-field-label" for="{{ form.password2.id_for_label }}">Confirm password</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}<p class="cb-field-error">{{ form.password2.errors.0 }}</p>{% endif %}
+      </div>
+
+      {% if form.non_field_errors %}<p class="cb-field-error">{{ form.non_field_errors.0 }}</p>{% endif %}
+
       <button type="submit" class="btn btn-primary btn-lg mt-2">Register</button>
     </form>
     <p class="cb-form-footer">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
