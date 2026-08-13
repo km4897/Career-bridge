@@ -1,0 +1,68 @@
+{% load icons %}
+<aside class="cb-sidebar">
+  <div class="cb-sidebar-user">
+    <div class="cb-sidebar-avatar">{{ user.username|slice:":2"|upper }}</div>
+    <div>
+      <div class="cb-sidebar-user-name">{{ user.username }}</div>
+      <div class="cb-sidebar-user-role">{{ user.get_role_display }}</div>
+    </div>
+  </div>
+
+  {% if user.is_applicant %}
+    <div class="cb-sidebar-heading">Menu</div>
+    <a href="{% url 'dashboard:applicant' %}" class="cb-sidebar-link {% if request.path == '/dashboard/applicant/' %}active{% endif %}">
+      {% icon "dashboard" %}<span class="cb-sidebar-link-text">Dashboard</span>
+    </a>
+    <a href="{% url 'applications:my_applications' %}" class="cb-sidebar-link {% if request.path == '/applications/mine/' %}active{% endif %}">
+      {% icon "file" %}<span class="cb-sidebar-link-text">My Applications</span>
+    </a>
+    <a href="{% url 'matching:recommended' %}" class="cb-sidebar-link {% if request.path == '/matching/' %}active{% endif %}">
+      {% icon "star" %}<span class="cb-sidebar-link-text">Recommended</span>
+    </a>
+    <a href="{% url 'profiles:edit_applicant' %}" class="cb-sidebar-link {% if request.path == '/profiles/applicant/edit/' %}active{% endif %}">
+      {% icon "user" %}<span class="cb-sidebar-link-text">My Profile</span>
+    </a>
+
+    <div class="cb-sidebar-heading">Account</div>
+    <a href="{% url 'notifications:list' %}" class="cb-sidebar-link {% if request.path == '/notifications/' %}active{% endif %}">
+      {% icon "bell" %}<span class="cb-sidebar-link-text">Notifications</span>
+      {% if unread_notifications_count > 0 %}<span class="badge rounded-pill bg-danger">{{ unread_notifications_count }}</span>{% endif %}
+    </a>
+
+  {% elif user.is_employer %}
+    <div class="cb-sidebar-heading">Menu</div>
+    <a href="{% url 'dashboard:employer' %}" class="cb-sidebar-link {% if request.path == '/dashboard/employer/' %}active{% endif %}">
+      {% icon "dashboard" %}<span class="cb-sidebar-link-text">Dashboard</span>
+    </a>
+    <a href="{% url 'opportunities:create' %}" class="cb-sidebar-link {% if request.path == '/opportunities/new/' %}active{% endif %}">
+      {% icon "plus-circle" %}<span class="cb-sidebar-link-text">Post Opportunity</span>
+    </a>
+    <a href="{% url 'opportunities:my_opportunities' %}" class="cb-sidebar-link {% if request.path == '/opportunities/mine/' %}active{% endif %}">
+      {% icon "briefcase" %}<span class="cb-sidebar-link-text">My Opportunities</span>
+    </a>
+    <a href="{% url 'profiles:edit_employer' %}" class="cb-sidebar-link {% if request.path == '/profiles/employer/edit/' %}active{% endif %}">
+      {% icon "building" %}<span class="cb-sidebar-link-text">Organisation Profile</span>
+    </a>
+
+    <div class="cb-sidebar-heading">Account</div>
+    <a href="{% url 'notifications:list' %}" class="cb-sidebar-link {% if request.path == '/notifications/' %}active{% endif %}">
+      {% icon "bell" %}<span class="cb-sidebar-link-text">Notifications</span>
+      {% if unread_notifications_count > 0 %}<span class="badge rounded-pill bg-danger">{{ unread_notifications_count }}</span>{% endif %}
+    </a>
+
+  {% else %}
+    <div class="cb-sidebar-heading">Menu</div>
+    <a href="{% url 'dashboard:admin' %}" class="cb-sidebar-link {% if request.path == '/dashboard/admin/' %}active{% endif %}">
+      {% icon "dashboard" %}<span class="cb-sidebar-link-text">Dashboard</span>
+    </a>
+    <a href="/admin/" class="cb-sidebar-link">
+      {% icon "users" %}<span class="cb-sidebar-link-text">Django Admin</span>
+    </a>
+
+    <div class="cb-sidebar-heading">Account</div>
+    <a href="{% url 'notifications:list' %}" class="cb-sidebar-link {% if request.path == '/notifications/' %}active{% endif %}">
+      {% icon "bell" %}<span class="cb-sidebar-link-text">Notifications</span>
+      {% if unread_notifications_count > 0 %}<span class="badge rounded-pill bg-danger">{{ unread_notifications_count }}</span>{% endif %}
+    </a>
+  {% endif %}
+</aside>
