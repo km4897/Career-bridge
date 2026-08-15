@@ -1,17 +1,32 @@
 {% extends "app_base.html" %}
+{% load icons %}
 {% block title %}Applicants — {{ opportunity.title }}{% endblock %}
 {% block app_content %}
 <h1 class="mb-1">Applicants for "{{ opportunity.title }}"</h1>
 <p class="text-muted mb-4">{{ applications|length }} applicant(s)</p>
 
 {% if applications %}
-  <table class="table">
-    <thead><tr><th>Applicant</th><th>Submitted</th><th>Cover Note</th><th>Status</th></tr></thead>
+  <table class="table align-middle">
+    <thead><tr><th>Applicant</th><th>Contact</th><th>CV</th><th>Cover Note</th><th>Status</th></tr></thead>
     <tbody>
       {% for app in applications %}
       <tr>
-        <td>{{ app.applicant.username }} <br><small class="text-muted">{{ app.applicant.email }}</small></td>
-        <td>{{ app.submitted_at|date:"d M Y" }}</td>
+        <td>{{ app.display_name }}<br><small class="text-muted">{{ app.applicant.username }}</small></td>
+        <td>
+          {{ app.applicant.email }}
+          {% if app.phone_number %}<br><small class="text-muted">{{ app.phone_number }}</small>{% endif %}
+        </td>
+        <td>
+          {% with cv=app.display_cv %}
+            {% if cv %}
+              <a href="{{ cv.url }}" target="_blank" class="d-inline-flex align-items-center gap-1">
+                {% icon "paperclip" size=14 %} View CV
+              </a>
+            {% else %}
+              <span class="text-muted">Not provided</span>
+            {% endif %}
+          {% endwith %}
+        </td>
         <td>{{ app.cover_note|default:"—"|truncatewords:20 }}</td>
         <td>
           <form method="post" action="{% url 'applications:update_status' app.pk %}" class="d-flex gap-2">
