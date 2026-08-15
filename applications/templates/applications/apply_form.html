@@ -2,10 +2,17 @@
 {% block title %}Apply — {{ opportunity.title }}{% endblock %}
 {% block content %}
 <div class="cb-form-page">
-  <div class="cb-form-card">
+  <div class="cb-form-card cb-form-card-wide">
     <h1>Apply to this opportunity</h1>
     <p class="cb-form-subtitle">{{ opportunity.title }} · {{ opportunity.location }} · {{ opportunity.get_opportunity_type_display }}</p>
-    <form method="post" novalidate>
+
+    {% if profile and profile.cv %}
+      <p class="cb-field-help mb-3">You already have a CV on your profile. Leave the CV field below blank to reuse it, or upload a different one just for this application.</p>
+    {% elif not profile or not profile.cv %}
+      <p class="cb-field-help mb-3">You don't have a CV on your profile yet — please attach one below for this application.</p>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit" class="btn btn-success btn-lg mt-2">Submit Application</button>

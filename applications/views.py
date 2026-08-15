@@ -26,7 +26,7 @@ def apply_to_opportunity(request, slug):
         return redirect(opportunity.get_absolute_url())
 
     if request.method == "POST":
-        form = ApplicationForm(request.POST)
+        form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             application = form.save(commit=False)
             application.applicant = request.user
@@ -35,9 +35,16 @@ def apply_to_opportunity(request, slug):
             messages.success(request, "Application submitted successfully.")
             return redirect("applications:my_applications")
     else:
-        form = ApplicationForm()
+        profile = getattr(request.user, "applicant_profile", None)
+        initial = {}
+        if profile:
+            initial["full_name"] = profile.full_name
+        form = ApplicationForm(initial=initial)
 
-    return render(request, "applications/apply_form.html", {"form": form, "opportunity": opportunity})
+    return render(request, "applications/apply_form.html", {
+        "form": form, "opportunity": opportunity,
+        "profile": getattr(request.user, "applicant_profile", None),
+    })
 
 
 @login_required
