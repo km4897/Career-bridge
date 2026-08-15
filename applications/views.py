@@ -45,8 +45,27 @@ def my_applications(request):
     if not request.user.is_applicant:
         messages.error(request, "Only applicant accounts have an applications list.")
         return redirect("core:landing")
-    applications = Application.objects.filter(applicant=request.user).select_related("opportunity")
-    return render(request, "applications/my_applications.html", {"applications": applications})
+
+    all_applications = Application.objects.filter(applicant=request.user).select_related("opportunity")
+
+    status_filter = request.GET.get("status", "")
+    if status_filter and status_filter in Application.Status.values:
+        applications = all_applications.filter(status=status_filter)
+    else:
+        applications = all_applications
+        status_filter = ""
+
+    # Tab list: "All" plus one per status, each with a live count.
+    tabs = [{"code": "", "label": "All", "count": all_applications.count()}]
+    for code, label in Application.Status.choices:
+        count = all_applications.filter(status=code).count()
+        tabs.append({"code": code, "label": label, "count": count})
+
+    return render(request, "applications/my_applications.html", {
+        "applications": applications,
+        "tabs": tabs,
+        "active_status": status_filter,
+    })
 
 
 @login_required

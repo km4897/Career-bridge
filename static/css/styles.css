@@ -762,3 +762,21 @@ footer.cb-footer li { margin-bottom: 0.55rem; font-size: 0.92rem; }
     margin-bottom: 0;
   }
 }
+
+/* ---------- Filter tabs (nav-pills) ---------- */
+.nav-pills .nav-link {
+  color: var(--cb-ink);
+  background: var(--cb-card);
+  border: 1px solid var(--cb-border);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.nav-pills .nav-link:hover { border-color: var(--cb-teal); }
+.nav-pills .nav-link.active {
+  background: var(--cb-teal) !important;
+  color: #fff !important;
+  border-color: var(--cb-teal);
+}
+.nav-pills .nav-link .badge { font-size: 0.7rem; }

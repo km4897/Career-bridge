@@ -2,9 +2,21 @@
 {% block title %}My Applications — CareerBridge{% endblock %}
 {% block app_content %}
 <h1 class="mb-4">My Applications</h1>
+
+<ul class="nav nav-pills mb-4 flex-wrap gap-2">
+  {% for tab in tabs %}
+    <li class="nav-item">
+      <a href="{% url 'applications:my_applications' %}{% if tab.code %}?status={{ tab.code }}{% endif %}"
+         class="nav-link {% if tab.code == active_status %}active{% endif %}">
+        {{ tab.label }} <span class="badge text-bg-light text-dark ms-1">{{ tab.count }}</span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
 {% if applications %}
   <table class="table">
-    <thead><tr><th>Opportunity</th><th>Employer</th><th>Status</th><th>Submitted</th></tr></thead>
+    <thead><tr><th>Opportunity</th><th>Employer</th><th>Status</th><th>Submitted</th><th></th></tr></thead>
     <tbody>
       {% for app in applications %}
       <tr>
@@ -18,11 +30,20 @@
           {% endif %}
         </td>
         <td>{{ app.submitted_at|date:"d M Y" }}</td>
+        <td>
+          {% if app.status != "REJECTED" %}
+            <a href="{% url 'messaging:thread' app.id %}" class="btn btn-sm btn-outline-secondary">Message</a>
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 {% else %}
-  <p class="text-muted">You haven't applied to any opportunities yet. <a href="{% url 'opportunities:list' %}">Browse opportunities</a>.</p>
+  {% if active_status %}
+    <p class="text-slate">No applications with this status.</p>
+  {% else %}
+    <p class="text-slate">You haven't applied to any opportunities yet. <a href="{% url 'opportunities:list' %}">Browse opportunities</a>.</p>
+  {% endif %}
 {% endif %}
 {% endblock %}
