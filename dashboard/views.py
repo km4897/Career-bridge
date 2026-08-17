@@ -33,6 +33,9 @@ def redirect_dashboard(request):
 
 @login_required
 def applicant_dashboard(request):
+    if not request.user.is_applicant:
+        return redirect("dashboard:redirect")
+
     applications = Application.objects.filter(applicant=request.user).select_related("opportunity")
     recommended = get_recommended_opportunities(request.user, limit=5)
     unread_notifications = request.user.notifications.filter(is_read=False).count()
@@ -46,6 +49,9 @@ def applicant_dashboard(request):
 
 @login_required
 def employer_dashboard(request):
+    if not request.user.is_employer:
+        return redirect("dashboard:redirect")
+
     postings = Opportunity.objects.filter(employer=request.user)
     applicants = Application.objects.filter(opportunity__employer=request.user)
     unread_notifications = request.user.notifications.filter(is_read=False).count()
@@ -62,6 +68,9 @@ def employer_dashboard(request):
 
 @login_required
 def admin_dashboard(request):
+    if request.user.is_applicant or request.user.is_employer:
+        return redirect("dashboard:redirect")
+
     all_applications = Application.objects.all()
     stats = {
         "total_users": User.objects.count(),
