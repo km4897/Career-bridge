@@ -1,0 +1,40 @@
+{% extends "app_base.html" %}
+{% load icons %}
+{% block title %}Messages — CareerBridge{% endblock %}
+{% block app_content %}
+<h1 class="mb-1">Messages</h1>
+<p class="text-slate mb-4">All your conversations in one place.</p>
+
+{% if conversations %}
+  <div class="list-group">
+    {% for c in conversations %}
+      <a href="{% url 'messaging:thread' c.application.id %}" class="list-group-item list-group-item-action">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h6 class="mb-1">{{ c.other_party.username }}</h6>
+            <p class="text-slate small mb-1">Re: {{ c.application.opportunity.title }}</p>
+            {% if c.last_message %}
+              <p class="mb-0">
+                {% if c.last_message.sender == user %}<span class="text-slate">You: </span>{% endif %}
+                {{ c.last_message.body|truncatechars:80 }}
+              </p>
+            {% else %}
+              <p class="mb-0 text-slate fst-italic">No messages yet — say hello.</p>
+            {% endif %}
+          </div>
+          <small class="text-slate flex-shrink-0 ms-3">{{ c.activity_at|date:"d M" }}</small>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-slate">
+    No conversations yet.
+    {% if user.is_applicant %}
+      Once an employer shortlists one of your applications, you can message them here.
+    {% else %}
+      Once you shortlist an applicant, you can message them here.
+    {% endif %}
+  </p>
+{% endif %}
+{% endblock %}

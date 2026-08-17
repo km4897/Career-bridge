@@ -22,6 +22,9 @@
     <a href="{% url 'profiles:edit_applicant' %}" class="cb-sidebar-link {% if request.path == '/profiles/applicant/edit/' %}active{% endif %}">
       {% icon "user" %}<span class="cb-sidebar-link-text">My Profile</span>
     </a>
+    <a href="{% url 'messaging:inbox' %}" class="cb-sidebar-link {% if request.path == '/messages/' %}active{% endif %}">
+      {% icon "message" %}<span class="cb-sidebar-link-text">Messages</span>
+    </a>
 
     <div class="cb-sidebar-heading">Account</div>
     <a href="{% url 'notifications:list' %}" class="cb-sidebar-link {% if request.path == '/notifications/' %}active{% endif %}">
@@ -42,6 +45,9 @@
     </a>
     <a href="{% url 'profiles:edit_employer' %}" class="cb-sidebar-link {% if request.path == '/profiles/employer/edit/' %}active{% endif %}">
       {% icon "building" %}<span class="cb-sidebar-link-text">Organisation Profile</span>
+    </a>
+    <a href="{% url 'messaging:inbox' %}" class="cb-sidebar-link {% if request.path == '/messages/' %}active{% endif %}">
+      {% icon "message" %}<span class="cb-sidebar-link-text">Messages</span>
     </a>
 
     <div class="cb-sidebar-heading">Account</div>
