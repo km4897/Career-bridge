@@ -21,10 +21,7 @@
   {% if already_applied %}
     <p class="alert alert-info">You've already applied to this opportunity.</p>
   {% else %}
-    <form method="post" action="{% url 'applications:apply' opportunity.slug %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-success">Apply Now</button>
-    </form>
+    <a href="{% url 'applications:apply' opportunity.slug %}" class="btn btn-success">Apply Now</a>
   {% endif %}
 {% elif not user.is_authenticated %}
   <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-success">Log in to Apply</a>
